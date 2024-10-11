@@ -94,6 +94,46 @@
 }
 
 @layer base {
+  body {
+    @apply font-normal;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-extrabold;
+  }
+
+  h1 {
+    @apply text-heading-1;
+  }
+
+  h2 {
+    @apply text-heading-2;
+  }
+
+  h3 {
+    @apply text-heading-3;
+  }
+
+  h4 {
+    @apply text-heading-4;
+  }
+
+  h5 {
+    @apply text-heading-5;
+  }
+
+  h6 {
+    @apply text-heading-6;
+  }
+
+  p {
+    @apply text-body-1 font-normal;
+  }
   * {
     @apply border-border;
   }

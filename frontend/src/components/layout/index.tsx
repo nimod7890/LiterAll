@@ -1,3 +1,4 @@
+import LitUpButton from "@components/layout/LitUpButton";
 import Logo from "@components/layout/Logo";
 import MyExp from "@components/layout/MyExp";
 import useInitialize from "@hooks/useInitialize";
@@ -11,6 +12,7 @@ export default function Layout() {
       <div className="sticky top-0 z-50 flex justify-between px-8 py-6 h-8 items-center border-b-2 border-b-gray-100">
         <Logo />
         <MyExp />
+        <LitUpButton />
       </div>
       <main className="flex flex-grow flex-col justify-between">
         <Outlet />
