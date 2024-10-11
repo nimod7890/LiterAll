@@ -48,7 +48,7 @@ def lambda_handler(event, context):
         cursor = db_connection.cursor()
         print(user_id, user_password)
         # 유저 정보 조회 쿼리
-        query = 'SELECT name, exp FROM User WHERE user_id = %s AND user_pw = %s'
+        query = 'SELECT id FROM User WHERE user_id = %s AND user_pw = %s'
         cursor.execute(query, (user_id, user_password))
         result = cursor.fetchone()
 
@@ -58,13 +58,18 @@ def lambda_handler(event, context):
                 'body': {'error': 'Invalid credentials'}
             }
         
-        name, exp = result
+        id = result[0]
 
         return {
             'statusCode': 200,
+            "headers": {
+                "Access-Control-Allow-Origin": "http://localhost:5173",
+                "Access-Control-Allow-Credentials": "true",
+                "Access-Control-Allow-Methods": "OPTIONS,POST",  # 필요한 메서드 추가
+                "Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token"
+            },
             'body': {
-                'name': name,
-                'exp': exp
+                'user_key': id
             }
         }
 

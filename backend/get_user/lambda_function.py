@@ -9,6 +9,9 @@ dbname = 'Literacy'
 
 
 def lambda_handler(event, context):
+    print(event)
+    params = event['queryStringParameters']
+    '''
     body = event.get('body')
     if isinstance(body, str):
         try:
@@ -23,7 +26,10 @@ def lambda_handler(event, context):
             'statusCode': 400, 
             'body': {'error': 'user_key is missing'}
         }
-    user_key = body['user_key']
+    '''
+    print(params)
+    user_key = params['user_key']
+    print(user_key)
 
     try:
         db_connection = pymysql.connect(
@@ -39,6 +45,7 @@ def lambda_handler(event, context):
         query = 'SELECT name, exp FROM User WHERE id = %s'
         cursor.execute(query, (user_key,))
         result = cursor.fetchone()
+        print(result)
 
         if result is None:
             return {
@@ -50,6 +57,12 @@ def lambda_handler(event, context):
 
         return {
             'statusCode': 200,
+            "headers": {
+                "Access-Control-Allow-Origin": "http://localhost:5173",
+                "Access-Control-Allow-Credentials": "true",
+                "Access-Control-Allow-Methods": "OPTIONS,GET",  # 필요한 메서드 추가
+                "Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token"
+            },
             'body': {
                 'name': name,
                 'exp': exp
