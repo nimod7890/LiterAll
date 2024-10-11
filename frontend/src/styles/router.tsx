@@ -35,6 +35,7 @@ const routes: RouteObject[] = [
       },
     ],
   },
+
   {
     path: RoutePath.Login,
     element: <LoginPage />,

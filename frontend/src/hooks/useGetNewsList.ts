@@ -1,27 +1,20 @@
 import useAuth from "@hooks/useAuth";
 import QueryKeys from "@libraries/reactQuery/queryKeys";
-import { User } from "@models/user";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import http from "@utils/api";
-import CustomError from "@utils/api/error";
-import { useEffect } from "react";
 
 export default function useGetNewsList() {
-  const { userKey, clearAuthData } = useAuth();
-  const { data: userInfo, status, ...props } = useSuspenseQuery(userInfoQueryOptions(userKey));
+  const { user } = useAuth();
 
-  useEffect(() => {
-    if (status === "error") {
-      clearAuthData();
-      throw new CustomError("유저 정보를 불러오는 중에 문제가 발생하였습니다.", 400);
-    }
-  }, [status]);
+  const {
+    data: newsList,
+    status,
+    ...props
+  } = useQuery({
+    queryKey: [QueryKeys.NEWS_LIST, user?.exp],
+    queryFn: () => http.get("/news-list"),
+    enabled: Boolean(user?.exp),
+  });
 
-  return { userInfo, ...props };
+  return { newsList, ...props };
 }
-
-export const userInfoQueryOptions = (userKey: string | null) => ({
-  queryKey: [QueryKeys.USER_INFO, userKey],
-  queryFn: () => http.get<User>("/user-info"),
-  enabled: Boolean(userKey),
-});

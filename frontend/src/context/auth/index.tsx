@@ -9,7 +9,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   const [userKey, setUserKey, clearUserKey] = useUserKeyStorage();
 
   const setAuthData = useCallback(
-    ({ user, userKey }: Partial<{ user: User; userKey: string }>) => {
+    ({ user, userKey }: Partial<{ user: User; userKey: number }>) => {
       if (user) setUser(user);
       if (userKey) setUserKey(userKey);
     },

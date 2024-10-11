@@ -16,7 +16,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex items-center justify-center flex-row h-screen ">
-      <div className="w-1/2 flex justify-center items-center">
+      <div className="w-1/2 flex justify-center items-center z-10">
         <Form {...form}>
           <form
             onSubmit={handleSubmit(signin as SigninMutation)}
@@ -29,7 +29,7 @@ export default function LoginPage() {
                 <FormItem className="w-[300px] mb-5">
                   <FormLabel>ID</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input autoComplete="username" {...field} />
                   </FormControl>
                 </FormItem>
               )}
@@ -52,7 +52,7 @@ export default function LoginPage() {
           </form>
         </Form>
       </div>
-      <div className="w-[900px] -ml-[200px] -mr-[100px]">
+      <div className="w-[900px] -ml-[200px] -mr-[100px] overflow-hidden">
         <Lottie options={{ animationData: loginLottie, loop: true, autoplay: true }} speed={2} />
       </div>
     </div>

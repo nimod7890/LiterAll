@@ -4,8 +4,8 @@ import type { User } from "@/types/user";
 interface AuthContextType {
   isAuthenticated: boolean;
   user: User | null;
-  userKey: string | null;
-  setAuthData: ({ user, userKey }: Partial<{ user: User; userKey: string }>) => void;
+  userKey: number | null;
+  setAuthData: ({ user, userKey }: Partial<{ user: User; userKey: number }>) => void;
   clearAuthData: () => void;
 }
 

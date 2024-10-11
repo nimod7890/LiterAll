@@ -1,14 +1,13 @@
 import useAuth from "@hooks/useAuth";
 import QueryKeys from "@libraries/reactQuery/queryKeys";
 import { User } from "@models/user";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import http from "@utils/api";
+import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 import CustomError from "@utils/api/error";
 import { useEffect } from "react";
 
 export default function useGetUserInfo() {
   const { userKey, clearAuthData } = useAuth();
-  const { data: userInfo, status, ...props } = useSuspenseQuery(userInfoQueryOptions(userKey));
+  const { data: userInfo, status, ...props } = useQuery<User>(userInfoQueryOptions(userKey));
 
   useEffect(() => {
     if (status === "error") {
@@ -17,11 +16,12 @@ export default function useGetUserInfo() {
     }
   }, [status]);
 
-  return { userInfo, ...props };
+  return { userInfo: userInfo as User, ...props };
 }
 
-export const userInfoQueryOptions = (userKey: string | null) => ({
+export const userInfoQueryOptions = (userKey: number | null): UseQueryOptions<User> => ({
   queryKey: [QueryKeys.USER_INFO, userKey],
-  queryFn: () => http.get<User>("/user-info"),
+  // queryFn: () => http.get<User>("/user-info"),
+  queryFn: () => Promise.resolve({ name: "보민", exp: 140 }),
   enabled: Boolean(userKey),
 });
