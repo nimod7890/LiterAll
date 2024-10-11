@@ -1,4 +1,4 @@
-import { fontFamily, fontSize, fontWeight } from "./src/styles/theme/index.ts";
+import { fontFamily, fontSize, fontWeight, spacing } from "./src/styles/theme/index.ts";
 
 const tailwindConfig = {
   darkMode: ["class"],
@@ -7,10 +7,10 @@ const tailwindConfig = {
     fontFamily,
     fontWeight,
     fontSize,
-    borderRadius: "spacing",
-    gap: "spacing",
-    margin: "spacing",
-    padding: "spacing",
+    borderRadius: spacing,
+    gap: spacing,
+    margin: spacing,
+    padding: spacing,
     extend: {
       borderRadius: {
         lg: "var(--radius)",
