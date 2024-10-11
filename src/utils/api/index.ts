@@ -1,4 +1,5 @@
-import { ACCESS_TOKEN_KEY } from 'src/constants/api.ts';
+
+import { ACCESS_TOKEN_KEY } from '@constants/api';
 import CustomError from 'src/utils/api/error.ts';
 import fetchWithInterceptors from 'src/utils/api/fetchInterceptors.ts';
 import getCookie from 'src/utils/storage/cookie/getCookie.ts';
