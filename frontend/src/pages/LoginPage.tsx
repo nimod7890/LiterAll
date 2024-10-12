@@ -1,10 +1,11 @@
 import { Button } from "@components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@components/ui/form";
 import { Input } from "@components/ui/input";
-import useSignin, { SigninFormData } from "@hooks/useSignin";
+import useSignin, { SigninFormData } from "@hooks/mutate/useSignin";
 import { useForm } from "react-hook-form";
 import Lottie from "react-lottie";
 import loginLottie from "@assets/lottie-login.json";
+import Logo from "@components/layout/Logo";
 
 type SigninMutation = (data: SigninFormData) => void;
 
@@ -15,13 +16,14 @@ export default function LoginPage() {
   const { mutate: signin } = useSignin();
 
   return (
-    <div className="flex items-center justify-center flex-row h-screen ">
-      <div className="w-1/2 flex justify-center items-center z-10">
+    <div className="flex items-center justify-center flex-row h-screen bg-white">
+      <div className="w-1/2 flex justify-center items-center z-10 ">
         <Form {...form}>
           <form
             onSubmit={handleSubmit(signin as SigninMutation)}
             className="flex flex-col p-12 justify-center items-center"
           >
+            <Logo size="lg" />
             <FormField
               control={control}
               name="id"

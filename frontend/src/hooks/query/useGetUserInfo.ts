@@ -2,6 +2,7 @@ import useAuth from "@hooks/useAuth";
 import QueryKeys from "@libraries/reactQuery/queryKeys";
 import { User } from "@models/user";
 import { useQuery, UseQueryOptions } from "@tanstack/react-query";
+import http from "@utils/api";
 import CustomError from "@utils/api/error";
 import { useEffect } from "react";
 
@@ -21,7 +22,6 @@ export default function useGetUserInfo() {
 
 export const userInfoQueryOptions = (userKey: number | null): UseQueryOptions<User> => ({
   queryKey: [QueryKeys.USER_INFO, userKey],
-  // queryFn: () => http.get<User>("/user-info"),
-  queryFn: () => Promise.resolve({ name: "보민", exp: 140 }),
+  queryFn: async () => (await http.be.get<{ body: User }>(`/user?user_key=${userKey}`)).body,
   enabled: Boolean(userKey),
 });

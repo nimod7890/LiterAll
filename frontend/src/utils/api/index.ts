@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@constants/environments";
+import { AI_BASE_URL, BE_BASE_URL } from "@constants/environments";
 import CustomError from "src/utils/api/error.ts";
 import fetchWithInterceptors from "src/utils/api/fetchInterceptors.ts";
 
@@ -39,9 +39,7 @@ class FetchWrapper {
   }
 
   async get<T>(url: string): Promise<T> {
-    return this.request<T>(url, {
-      credentials: "include",
-    });
+    return this.request<T>(url, { headers: { ...defaultHeader } });
   }
 
   async put<T, U>(url: string, data: U): Promise<T> {
@@ -58,7 +56,6 @@ class FetchWrapper {
       method: "POST",
       body: data ? JSON.stringify(data) : null,
       headers: { ...defaultHeader },
-      credentials: "include",
     });
   }
 
@@ -69,6 +66,6 @@ class FetchWrapper {
   }
 }
 
-const http = new FetchWrapper(API_BASE_URL);
+const http = { ai: new FetchWrapper(AI_BASE_URL), be: new FetchWrapper(BE_BASE_URL) };
 
 export default http;

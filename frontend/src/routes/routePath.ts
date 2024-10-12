@@ -1,7 +1,7 @@
 const RoutePath = {
   Index: "/",
   Login: "/login",
-  News: "/news/:id",
+  News: "/news-details",
 } as const;
 
 export default RoutePath;

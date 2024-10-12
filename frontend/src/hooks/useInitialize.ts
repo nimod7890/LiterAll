@@ -1,4 +1,4 @@
-import useGetUserInfo from "@hooks/useGetUserInfo";
+import useGetUserInfo from "@hooks/query/useGetUserInfo";
 import { useLayoutEffect } from "react";
 import useAuth from "src/hooks/useAuth.ts";
 

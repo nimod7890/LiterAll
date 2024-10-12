@@ -8,13 +8,16 @@ import NewsDetailsPage from "@pages/NewsDetailsPage";
 import AuthProvider from "@context/auth";
 import NotFoundErrorPage from "@pages/error/NotFoundErrorPage";
 import LoginPage from "@pages/LoginPage";
+import ErrorPage from "@pages/error/ErrorPage";
+import GlobalFallback from "@components/layout/pending/GlobalFallback";
 
 const routes: RouteObject[] = [
   {
     path: RoutePath.Index,
     loader: root,
+    errorElement: <ErrorPage message="알 수 없는 오류가 발생했어요!" />,
     element: (
-      <Suspense>
+      <Suspense fallback={<GlobalFallback />}>
         <Outlet />
       </Suspense>
     ),
@@ -28,9 +31,16 @@ const routes: RouteObject[] = [
         children: [
           {
             index: true,
-            element: <HomePage />,
+            element: (
+              <Suspense fallback={<GlobalFallback />}>
+                <HomePage />
+              </Suspense>
+            ),
           },
-          { path: RoutePath.News, element: <NewsDetailsPage /> },
+          {
+            path: RoutePath.News,
+            element: <NewsDetailsPage />,
+          },
         ],
       },
     ],

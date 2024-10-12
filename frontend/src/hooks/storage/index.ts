@@ -1,4 +1,3 @@
-import Cookie from "@utils/storage";
 import { useState } from "react";
 
 export default function useStorage<T>(
@@ -6,17 +5,13 @@ export default function useStorage<T>(
   defaultValue: T,
 ): [T, (newValue: T) => void, () => void] {
   const [storedValue, setStoredValue] = useState<T>(() => {
-    try {
-      const cookieValue = Cookie.getCookie<T>(keyName);
-      return cookieValue !== null ? cookieValue : defaultValue;
-    } catch (err) {
-      return defaultValue;
-    }
+    const item = localStorage.getItem(keyName);
+    return item ? JSON.parse(item) : null;
   });
 
   const setValue = (newValue: T) => {
     try {
-      Cookie.setCookie<T>(keyName, newValue);
+      localStorage.setItem(keyName, JSON.stringify(newValue));
       setStoredValue(newValue);
     } catch (error) {
       console.error({ description: `${keyName} 저장 실패: ${error}` });
@@ -25,7 +20,7 @@ export default function useStorage<T>(
 
   const clearValue = () => {
     try {
-      Cookie.clearCookie(keyName);
+      localStorage.removeItem(keyName);
       setStoredValue(defaultValue);
     } catch (error) {
       console.error({ description: `${keyName} 저장 실패: ${error}` });
